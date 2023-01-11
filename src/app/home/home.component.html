@@ -1,0 +1,16 @@
+<h1>Server Manager App</h1>
+<p>Manage your Servers and Users</p>
+<div class="login">
+    <form (ngSubmit)="existUser()">
+        <p><label>Direccion de correo electrónico:</label>
+            <input type="text" id="username" name="username" [(ngModel)]="username">
+        </p>
+
+        <p><label>Contraseña:</label>
+            <input type="text" id="password" name="password" [(ngModel)]="password">
+        </p>
+        <input type="submit" value="Send">
+    </form>
+
+
+</div>
