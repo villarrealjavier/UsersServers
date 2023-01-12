@@ -20,4 +20,9 @@ export class UsersService {
   getUserAndEmail(email:string):Observable<User[]>{
     return this.http.get<User[]>(`http://localhost:3000/users?email=${email}`)
   }
+
+  getUserRol(rol:string):Observable<User[]>{
+    return this.http.get<User[]>(`http://localhost:3000/users?rol=${rol}`)
+  }
+ 
 }

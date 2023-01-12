@@ -1,6 +1,6 @@
 <h1>Server Manager App</h1>
 <p>Manage your Servers and Users</p>
-<div class="login">
+<div class="login" *ngIf="!login">
     <form (ngSubmit)="existUser()">
         <p><label>Direccion de correo electrónico:</label>
             <input type="text" id="username" name="username" [(ngModel)]="username">
@@ -10,7 +10,10 @@
             <input type="text" id="password" name="password" [(ngModel)]="password">
         </p>
         <input type="submit" value="Send">
+        
     </form>
 
-
+    
+    
 </div>
+<button class="btn btn-outline-info" *ngIf="login" (click)="onlogout()">Logout</button>
