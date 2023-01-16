@@ -24,5 +24,12 @@ export class UsersService {
   getUserRol(rol:string):Observable<User[]>{
     return this.http.get<User[]>(`http://localhost:3000/users?rol=${rol}`)
   }
+  // getLogin(token:string):Observable<string[]>{
+  //   return this.http.post<string[]>(`http://localhost:8000/auth/login`,token)
+  // }
+
+  // getRegister(rol:string):Observable<String[]>{
+  //   return this.http.get<String[]>(`http://localhost:8000/auth/register`)
+  // }
  
 }

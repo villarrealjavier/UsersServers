@@ -18,5 +18,6 @@
             "email": "jamie@iesjacaranda.es",
             "rol": "USER"
         }
-    ]
+    ],
+    "jwt":[]
 }

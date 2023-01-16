@@ -3,59 +3,46 @@ import { UsersService } from '../../users/services/users.service';
 import { User } from '../interfaces/client.interface';
 import { AuthGuard } from './AuthGuard.service';
 import { Observable, of, switchMap } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable()
 export class AuthService {
-  constructor(private userService: UsersService){
+  constructor(private userService: UsersService, private http:HttpClient){
     
   }
   // user:User[]=[];
+  httpOptions={
+    headers: new HttpHeaders({'Content-Type':'application/json'})
+  }
   admin=false;
   loggedIn = false;
   isAuthenticated() {
     return localStorage.getItem('loggin')==='true'
   }
   
-  login(username:string,password:string): Observable<boolean> {
-    return this.userService.getUserAndEmail(username)
-    .pipe( switchMap((user=> {
-      if(user.length){
-        if (user[0].email===username && user[0].name===password){
-          localStorage.setItem('loggin', 'true');
-          return of(true)
-        }
-        else{
-          localStorage.setItem('loggin', 'false');
-          return of(false)
-        }
+  login(email:string,password:string): Observable<boolean> {
+    return this.http.post<any>(`http://localhost:8000/auth/login`,{'email':email,'password':password}, this.httpOptions)
+    .pipe(switchMap(resp=>{
+      if(resp){
+        localStorage.setItem('token', resp.access_token);
+        localStorage.setItem('loggin',"true");
+        return of(true);
       }else{
-        localStorage.setItem('loggin', 'false');
-        return of(false)
+        localStorage.setItem('loggin',"false");
+        localStorage.removeItem("token");
+        return of(false);
       }
-    })))
+    }))
+   
     
   }
   onlogout(){
     localStorage.setItem('loggin','false');
+    localStorage.removeItem("token");
   }
 
-  canUpdate(username:string,password:string,rol:string):Observable<boolean>{
-    return this.userService.getUserRol(rol)
-    .pipe(switchMap((user=>{
-      if(user.length){
-        if(user[0].email===username && user[0].name===password && user[0].rol==="ADMIN"){
-          localStorage.setItem("ADMIN","true");
-          return of(true)
-        }else{
-          localStorage.setItem("ADMIN","false");
-          return of(false)
-        }
-      }else{
-        localStorage.setItem("ADMIN","false");
-        return of(false)
-      }
-    })))
+  
       
-  }
+  
 }
 
 
