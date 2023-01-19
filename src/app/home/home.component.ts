@@ -16,8 +16,13 @@ export class HomeComponent implements OnInit {
   login:boolean=false;
   user:User[]=[]
   ngOnInit(): void {
-    this.login= this.AuthService.isAuthenticated();
-  }
+    this.AuthService.isAuthenticated()
+    .subscribe({
+      next:(resp)=>{
+        this.login=resp;
+      }
+    })
+    }
 
   existUser(){
     console.log('Email: ', this.username, 'Password: ', this.password)
