@@ -4,6 +4,7 @@ import { User } from '../interfaces/client.interface';
 import { AuthGuard } from './AuthGuard.service';
 import { catchError, Observable, of, switchMap } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import Swal from 'sweetalert2';
 @Injectable()
 export class AuthService {
   constructor(private userService: UsersService, private http:HttpClient){

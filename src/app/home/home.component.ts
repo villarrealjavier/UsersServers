@@ -3,6 +3,7 @@ import { User } from '../servers/interfaces/client.interface';
 import { UsersService } from '../users/services/users.service';
 import { AuthService } from '../servers/services/AuthService.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home',
@@ -36,7 +37,7 @@ export class HomeComponent implements OnInit {
           else {
             this.username=''; 
             this.password='';
-            confirm('Email o contraseña incorrectos');
+            Swal.fire('Sorry, the password or email are incorrect');
           }
         }
       })
