@@ -39,15 +39,16 @@ export class AuthService {
   login(email:string,password:string): Observable<boolean> {
     return this.http.post<any>(`http://localhost:8000/auth/login`,{'email':email,'password':password}, this.httpOptions)
     .pipe(switchMap(resp=>{
-      if(resp){
+     
         localStorage.setItem('token', resp.access_token);
         localStorage.setItem('loggin',"true");
         return of(true);
-      }else{
-        localStorage.setItem('loggin',"false");
-        localStorage.removeItem("token");
-        return of(false);
-      }
+      
+    }),catchError(error=>{
+      localStorage.setItem('loggin',"false");
+      localStorage.removeItem("token");
+      
+      return of(false)
     }))
    
     

@@ -20,7 +20,11 @@ export class UsersService {
   }
 
   getUser(id:number):Observable<User>{
-    return this.http.get<User>(`http://localhost:3000/users/${id}`)
+    const token=localStorage.getItem("token");
+    const httpOptions={
+      headers: new HttpHeaders({'Authorization':`Bearer ${token}`})
+    }
+    return this.http.get<User>(`http://localhost:8000/users/${id}`,httpOptions)
   }
   getUserAndEmail(email:string):Observable<User[]>{
     return this.http.get<User[]>(`http://localhost:3000/users?email=${email}`)
