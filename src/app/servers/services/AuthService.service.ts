@@ -22,13 +22,16 @@ export class AuthService {
 
    isAuthenticated(){
     const token=localStorage.getItem("token");
-    const httpOptions2={
-      headers: new HttpHeaders({'Authorization':`Bearer ${token}`})
-    }
-    return this.http.get<any>(`http://localhost:8000/jwt`,httpOptions2)
+    // const httpOptions2={
+    //   headers: new HttpHeaders({'Authorization':`Bearer ${token}`})
+    // }
+    return this.http.get<any>(`http://localhost:8000/jwt`)
     .pipe(switchMap(resp=>{
         return of(true)
     }),catchError(error=>{
+      console.log("is authenticated"
+      );
+      
       return of(false)
     }))
   }

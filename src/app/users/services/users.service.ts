@@ -13,18 +13,18 @@ export class UsersService {
 
   getUsers():Observable<User[]>{
     const token=localStorage.getItem("token");
-  const httpOptions={
-    headers: new HttpHeaders({'Authorization':`Bearer ${token}`})
-  }
-    return this.http.get<User[]>('http://localhost:8000/users', httpOptions)
+  // const httpOptions={
+  //   headers: new HttpHeaders({'Authorization':`Bearer ${token}`})
+  // }
+    return this.http.get<User[]>('http://localhost:8000/users')
   }
 
   getUser(id:number):Observable<User>{
     const token=localStorage.getItem("token");
-    const httpOptions={
-      headers: new HttpHeaders({'Authorization':`Bearer ${token}`})
-    }
-    return this.http.get<User>(`http://localhost:8000/users/${id}`,httpOptions)
+    // const httpOptions={
+    //   headers: new HttpHeaders({'Authorization':`Bearer ${token}`})
+    // }
+    return this.http.get<User>(`http://localhost:8000/users/${id}`)
   }
   getUserAndEmail(email:string):Observable<User[]>{
     return this.http.get<User[]>(`http://localhost:3000/users?email=${email}`)
